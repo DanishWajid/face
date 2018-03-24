@@ -13,15 +13,16 @@ import detect_face
 import random
 from time import sleep
 
-output_dir_path = 'out/'
-output_dir = os.path.expanduser(output_dir_path)
+datadir = 'in/'
+output_dir = 'out/'
+
 if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-datadir = 'in/'
 dataset = facenet.get_dataset(datadir)
 
 print('Creating networks and loading parameters')
+
 with tf.Graph().as_default():
     gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.5)
     sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False))

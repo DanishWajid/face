@@ -19,13 +19,15 @@ with tf.Graph().as_default():
     with tf.Session() as sess:
 
         datadir = 'out/'
+        modeldir = 'model.pb'
+        
         dataset = facenet.get_dataset(datadir)
         paths, labels = facenet.get_image_paths_and_labels(dataset)
         print('Number of classes: %d' % len(dataset))
         print('Number of images: %d' % len(paths))
 
         print('Loading feature extraction model')
-        modeldir = 'model.pb'
+
         facenet.load_model(modeldir)
 
         images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
@@ -61,5 +63,4 @@ with tf.Graph().as_default():
         # Saving classifier model
         with open(classifier_filename, 'wb') as outfile:
             pickle.dump((model, class_names), outfile)
-        print('Saved classifier model to file "%s"' % classifier_filename_exp)
         print('Goodluck')
